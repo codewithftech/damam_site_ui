@@ -1,8 +1,87 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AboutHero from "@/components/AboutHero";
+import Breadcrumbv1 from "@/components/Breadcrumbv1";
+
+type Leader = {
+  name: string;
+  title: string;
+  image: string;
+  isLarge?: boolean;
+};
+
+function LeaderCard({
+  leader,
+  variant,
+}: {
+  leader: Leader;
+  variant: "horizontal" | "largeVertical" | "smallVertical";
+}) {
+  if (variant === "horizontal") {
+    return (
+      <div className="w-full rounded-[20px] border border-[#EDEDED]  bg-[#F5F5F5] overflow-hidden flex items-stretch">
+        {/* Image (flush left, same radius as card) */}
+        <div className="w-[116px] h-[116px] bg-[#F5F5F5] flex-shrink-0">
+          <img
+            src={leader.image}
+            alt={leader.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Text */}
+        <div className="flex-1 min-w-0 px-6 py-5 flex flex-col justify-center">
+          <div className="text-brand-purple text-[18px] font-bold leading-[22px]">
+            {leader.name}
+          </div>
+          <div className="text-brand-gray text-[14px] font-medium leading-[20px] mt-2">
+            {leader.title}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (variant === "largeVertical") {
+    return (
+      <div className="w-[400px] h-[400px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
+        <img
+          src={leader.image}
+          alt={leader.name}
+          className="w-full h-[312px] object-cover rounded-t-[20px]"
+        />
+        <div className="p-3">
+          <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
+            {leader.name}
+          </div>
+          <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
+            {leader.title}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-[280px] h-[280px] rounded-[20px] border-[0.7px] border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
+      <img
+        src={leader.image}
+        alt={leader.name}
+        className="w-full h-[218px] object-cover rounded-t-[20px]"
+      />
+      <div className="p-[9px]">
+        <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
+          {leader.name}
+        </div>
+        <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
+          {leader.title}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function LeadershipPage() {
-  const boardMembers = [
+  const boardMembers: Leader[] = [
     {
       name: "Sufyan Zamil Al-Zamil",
       title: "Chairman",
@@ -36,7 +115,7 @@ export default function LeadershipPage() {
     },
   ];
 
-  const executiveTeam = [
+  const executiveTeam: Leader[] = [
     {
       name: "Sufyan Zamil Al-Zamil",
       title: "Chairman",
@@ -70,45 +149,22 @@ export default function LeadershipPage() {
     },
   ];
 
+  const ceoMessageLeader: Leader = {
+    name: "Mohammed Ali Al Hassany",
+    title: "CEO",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/f5f60b422a87b9894552015f27076fa2fe3458c5?width=558",
+  };
+
   return (
     <div className="w-full min-h-screen bg-white font-loew">
       <Header />
 
-      {/* Hero Section */}
-      <div className="relative w-full h-[535px] lg:h-[812px]">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/87f24726ec8a62c200878817f8cbaf4df9ad258f?width=2880"
-          alt="Dammam Airports"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-brand-purple/60">
-          <div className="container mx-auto px-4 lg:px-[120px] h-full flex flex-col justify-center">
-            <h1
-              className="text-white text-[40px] font-extrabold leading-[18px] tracking-[-0.25px] uppercase mb-[88px]"
-              style={{ fontWeight: 850 }}
-            >
-              DAMMAM AIRPORTS
-            </h1>
-            <p className="text-white text-[22px] lg:text-[24px] font-medium leading-[32px] tracking-[-0.25px] max-w-[343px] lg:max-w-[1014px]">
-              A key component of the Kingdom's efforts to improve the air
-              transport industry in Saudi Arabia.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="w-full bg-[#F5F5F5] py-8">
-        <div className="container mx-auto px-4 lg:px-[120px]">
-          <div className="flex items-center gap-2 text-[20px] font-bold leading-[24px] tracking-[-0.25px]">
-            <span className="text-brand-purple">Home</span>
-            <span className="text-brand-purple font-medium">|</span>
-            <span className="text-brand-purple">About Us</span>
-            <span className="text-brand-purple font-medium">|</span>
-            <span className="text-[#A799C4]">Leadership</span>
-          </div>
-        </div>
-      </div>
+    
+      <AboutHero />
+         
+         {/* Breadcrumb */}
+         <Breadcrumbv1 />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 lg:px-[120px] py-[108px]">
@@ -135,47 +191,34 @@ export default function LeadershipPage() {
 
           {/* Board Members Grid */}
           <div className="w-full max-w-[1201px]">
-            {/* Chairman - Centered Large Card */}
-            <div className="flex justify-center mb-[72px]">
-              <div className="w-[400px] h-[400px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
-                <img
-                  src={boardMembers[0].image}
-                  alt={boardMembers[0].name}
-                  className="w-full h-[312px] object-cover rounded-t-[20px]"
+            {/* Mobile/Tablet (compact horizontal cards) */}
+            <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {boardMembers.map((member) => (
+                <LeaderCard
+                  key={`${member.name}-${member.title}`}
+                  leader={member}
+                  variant="horizontal"
                 />
-                <div className="p-3">
-                  <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                    {boardMembers[0].name}
-                  </div>
-                  <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                    {boardMembers[0].title}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Board Members - 4 Smaller Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[27px]">
-              {boardMembers.slice(1).map((member, index) => (
-                <div
-                  key={index}
-                  className="w-full max-w-[280px] h-[280px] rounded-[20px] border-[0.7px] border-[#EDEDED] bg-[#F5F5F5] overflow-hidden"
-                >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-[218px] object-cover rounded-t-[20px]"
+            {/* Desktop (as-is layout) */}
+            <div className="hidden lg:block">
+              {/* Chairman - Centered Large Card */}
+              <div className="flex justify-center mb-[72px]">
+                <LeaderCard leader={boardMembers[0]} variant="largeVertical" />
+              </div>
+
+              {/* Board Members - 4 Smaller Cards */}
+              <div className="grid grid-cols-4 gap-[27px]">
+                {boardMembers.slice(1).map((member) => (
+                  <LeaderCard
+                    key={`${member.name}-${member.title}`}
+                    leader={member}
+                    variant="smallVertical"
                   />
-                  <div className="p-[9px]">
-                    <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                      {member.name}
-                    </div>
-                    <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                      {member.title}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -197,47 +240,34 @@ export default function LeadershipPage() {
 
           {/* Executive Team Grid */}
           <div className="w-full max-w-[1201px]">
-            {/* CEO - Centered Large Card */}
-            <div className="flex justify-center mb-[72px]">
-              <div className="w-[400px] h-[400px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
-                <img
-                  src={executiveTeam[0].image}
-                  alt={executiveTeam[0].name}
-                  className="w-full h-[312px] object-cover rounded-t-[20px]"
+            {/* Mobile/Tablet (compact horizontal cards) */}
+            <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {executiveTeam.map((member) => (
+                <LeaderCard
+                  key={`${member.name}-${member.title}`}
+                  leader={member}
+                  variant="horizontal"
                 />
-                <div className="p-3">
-                  <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                    {executiveTeam[0].name}
-                  </div>
-                  <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                    {executiveTeam[0].title}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Executive Team - 4 Smaller Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[27px]">
-              {executiveTeam.slice(1).map((member, index) => (
-                <div
-                  key={index}
-                  className="w-full max-w-[280px] h-[280px] rounded-[20px] border-[0.7px] border-[#EDEDED] bg-[#F5F5F5] overflow-hidden"
-                >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-[218px] object-cover rounded-t-[20px]"
+            {/* Desktop (as-is layout) */}
+            <div className="hidden lg:block">
+              {/* CEO - Centered Large Card */}
+              <div className="flex justify-center mb-[72px]">
+                <LeaderCard leader={executiveTeam[0]} variant="largeVertical" />
+              </div>
+
+              {/* Executive Team - 4 Smaller Cards */}
+              <div className="grid grid-cols-4 gap-[27px]">
+                {executiveTeam.slice(1).map((member) => (
+                  <LeaderCard
+                    key={`${member.name}-${member.title}`}
+                    leader={member}
+                    variant="smallVertical"
                   />
-                  <div className="p-[9px]">
-                    <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                      {member.name}
-                    </div>
-                    <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                      {member.title}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -257,18 +287,24 @@ export default function LeadershipPage() {
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-[50px]">
             {/* CEO Photo */}
             <div className="flex-shrink-0">
-              <div className="w-full lg:w-[279px] h-[308px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
+              {/* Mobile/Tablet: use same horizontal card UI */}
+              <div className="lg:hidden">
+                <LeaderCard leader={ceoMessageLeader} variant="horizontal" />
+              </div>
+
+              {/* Desktop: keep existing vertical card */}
+              <div className="hidden lg:block w-[279px] h-[308px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
                 <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/f5f60b422a87b9894552015f27076fa2fe3458c5?width=558"
-                  alt="Mohammed Ali Al Hassany"
+                  src={ceoMessageLeader.image}
+                  alt={ceoMessageLeader.name}
                   className="w-full h-[249px] object-cover rounded-t-[20px]"
                 />
                 <div className="p-2">
                   <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                    Mohammed Ali Al Hassany
+                    {ceoMessageLeader.name}
                   </div>
                   <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                    CEO
+                    {ceoMessageLeader.title}
                   </div>
                 </div>
               </div>

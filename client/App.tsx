@@ -12,7 +12,10 @@ import AboutPage from "./pages/AboutPage";
 import LeadershipPage from "./pages/LeadershipPage";
 import ComponentLibrary from "./pages/ComponentLibrary";
 import NotFound from "./pages/NotFound";
-import AboutPagev2 from "./pages/AboutPagev2";
+import AboutPostSingle from "./pages/AboutPostSingle";
+import AwardsPage from "./pages/AwardsPage";
+import KFIAPage from "./pages/KFIAPage";
+import OurAirportsPage from "./pages/OurAirportsPage";
 
 const queryClient = new QueryClient();
 
@@ -26,10 +29,13 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/aboutv2" element={<AboutPagev2 />} />
+            <Route path="/about-post-single" element={<AboutPostSingle />} />
             
             <Route path="/leadership" element={<LeadershipPage />} />
             <Route path="/component-library" element={<ComponentLibrary />} />
+            <Route path="/awards" element={<AwardsPage />} />
+          <Route path="/our-airports" element={<OurAirportsPage />} />
+          <Route path="/airports/kfia" element={<KFIAPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

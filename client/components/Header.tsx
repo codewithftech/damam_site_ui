@@ -1,17 +1,27 @@
 import { Search, ChevronDown } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
   const { language, setLanguage, isRTL } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobilePassengerMenuOpen, setIsMobilePassengerMenuOpen] = useState(false);
   const [isPassengerMenuOpen, setIsPassengerMenuOpen] = useState(false);
+  const [isAboutMenuOpen, setIsAboutMenuOpen] = useState(false);
+  const [isMobileAboutMenuOpen, setIsMobileAboutMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   
   const passengerMenuRef = useRef<HTMLDivElement>(null);
   const mobilePassengerMenuRef = useRef<HTMLDivElement>(null);
+  const aboutMenuRef = useRef<HTMLDivElement>(null);
+  const searchMenuRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Navigation items with translations
   const navItems = [
@@ -24,6 +34,55 @@ export default function Header() {
     { href: "#contact", en: "Contact Us", ar: "اتصل بنا" },
   ];
 
+  // Pages (must match routes in client/App.tsx)
+  const aboutMenuItems = [
+    { href: "/about", en: "About Dammam Airports", ar: "عن مطارات الدمام" },
+    { href: "/about-post-single", en: "About post single", ar: "الاستدامة والمسؤولية الاجتماعية" },
+    { href: "/leadership", en: "Leadership", ar: "القيادة" },
+    { href: "/awards", en: "Awards & Achievements", ar: "الجوائز والإنجازات" },
+    { href: "/our-airports", en: "Our Airports", ar: "مطاراتنا" },
+    { href: "/airports/kfia", en: "KFIA", ar: "KFIA" },
+    { href: "/component-library", en: "Component Library", ar: "مكتبة المكونات" },
+  ];
+
+  const searchItems = [
+    { href: "/", en: "Home", ar: "الرئيسية" },
+    ...aboutMenuItems,
+    ...navItems,
+  ];
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredSearchItems = normalizedQuery
+    ? searchItems.filter((i) => {
+        const label = (language === "ar" ? i.ar : i.en).toLowerCase();
+        return label.includes(normalizedQuery);
+      })
+    : searchItems;
+
+  const visibleSearchItems = filteredSearchItems.slice(0, 6);
+
+  const handleSearchSelect = (href: string) => {
+    setIsSearchOpen(false);
+    setIsMobileSearchOpen(false);
+    setSearchQuery("");
+
+    if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => {
+          const el = document.querySelector(href);
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      } else {
+        const el = document.querySelector(href);
+        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
+
+    navigate(href);
+  };
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,15 +92,41 @@ export default function Header() {
       if (mobilePassengerMenuRef.current && !mobilePassengerMenuRef.current.contains(event.target as Node)) {
         setIsMobilePassengerMenuOpen(false);
       }
+      if (aboutMenuRef.current && !aboutMenuRef.current.contains(event.target as Node)) {
+        setIsAboutMenuOpen(false);
+      }
+      if (searchMenuRef.current && !searchMenuRef.current.contains(event.target as Node)) {
+        setIsSearchOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (!isSearchOpen) return;
+    searchInputRef.current?.focus();
+  }, [isSearchOpen]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   // Close mobile menu when clicking on a link
   const handleMobileNavClick = () => {
     setIsMobileMenuOpen(false);
+    setIsMobilePassengerMenuOpen(false);
+    setIsMobileAboutMenuOpen(false);
+    setIsMobileSearchOpen(false);
+    setIsSearchOpen(false);
+    setSearchQuery("");
   };
 
   return (
@@ -87,8 +172,69 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className={`hidden lg:flex items-center gap-2 px-2 xl:px-0 xl:gap-8 flex-1 justify-center ${isRTL ? "flex-row-reverse" : ""}`}>
-          {navItems.map((item, index) => (
-            item.href.startsWith("/") ? (
+          {navItems.map((item, index) => {
+            if (item.href === "/about") {
+              return (
+                <div key={index} className="relative" ref={aboutMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => setIsAboutMenuOpen((v) => !v)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 text-brand-gray text-xs font-medium tracking-tight hover:text-brand-purple transition-colors",
+                      isRTL && "flex-row-reverse"
+                    )}
+                    aria-label={language === "ar" ? "من نحن" : "About menu"}
+                    aria-expanded={isAboutMenuOpen}
+                  >
+                    <span>{language === "ar" ? item.ar : item.en}</span>
+                    <ChevronDown
+                      className={cn(
+                        "w-3 h-3 transition-transform",
+                        isAboutMenuOpen && "rotate-180"
+                      )}
+                    />
+                  </button>
+
+                  {isAboutMenuOpen && (
+                    <div
+                      className={cn(
+                        "absolute top-full mt-3 w-[270px] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
+                        isRTL ? "right-0" : "left-0"
+                      )}
+                    >
+                      <div className="divide-y divide-[#EDEDED]">
+                        {aboutMenuItems.map((sub, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={sub.href}
+                            onClick={() => setIsAboutMenuOpen(false)}
+                            className={cn(
+                              "block px-6 py-4 text-brand-gray text-sm font-medium leading-[21px] hover:bg-white transition-colors",
+                              isRTL && "text-right"
+                            )}
+                          >
+                            {language === "ar" ? sub.ar : sub.en}
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Dropdown footer (separate) + logo on right side */}
+                      <div className="border-t border-[#EDEDED] px-5 py-3">
+                        <div className={cn("flex", isRTL ? "justify-start" : "justify-end")}>
+                          <img
+                            src="https://api.builder.io/api/v1/image/assets/TEMP/e7c1eacc18791db74219590313bb7e2f4879c5be?width=48"
+                            alt=""
+                            className="w-6 h-auto"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            return item.href.startsWith("/") ? (
               <Link
                 key={index}
                 to={item.href}
@@ -100,16 +246,88 @@ export default function Header() {
               <NavLink key={index} href={item.href}>
                 {language === "ar" ? item.ar : item.en}
               </NavLink>
-            )
-          ))}
+            );
+          })}
         </nav>
 
         {/* Right Side - Search, Language & Passenger Selector */}
         <div className={`flex items-center gap-4 ${isRTL ? "flex-row-reverse" : ""}`}>
           {/* Search Icon */}
-          <button className="text-brand-gray hover:text-brand-purple transition-colors">
-            <Search className="w-[18px] h-[18px]" />
-          </button>
+          <div className="relative" ref={searchMenuRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSearchOpen((v) => !v);
+                setIsPassengerMenuOpen(false);
+                setIsAboutMenuOpen(false);
+              }}
+              className="text-brand-gray hover:text-brand-purple transition-colors"
+              aria-label={language === "ar" ? "بحث" : "Search"}
+              aria-expanded={isSearchOpen}
+            >
+              <Search className="w-[18px] h-[18px]" />
+            </button>
+
+            {isSearchOpen && (
+              <div
+                className={cn(
+                  "absolute top-full mt-3 w-[320px] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
+                  isRTL ? "right-0" : "left-1/2 -translate-x-1/2"
+                )}
+              >
+                {/* Search input */}
+                <div className="p-4 border-b border-[#EDEDED]">
+                  <div className="flex items-center gap-2 bg-white rounded-full px-3 py-2 border border-[#EDEDED]">
+                    <Search className="w-4 h-4 text-brand-gray flex-shrink-0" />
+                    <input
+                      ref={searchInputRef}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={language === "ar" ? "ابحث..." : "Search..."}
+                      className={cn(
+                        "w-full bg-transparent text-sm text-brand-gray placeholder:text-brand-gray/60 outline-none",
+                        isRTL && "text-right"
+                      )}
+                    />
+                  </div>
+                </div>
+
+                {/* Results */}
+                <div className="max-h-[260px] overflow-auto divide-y divide-[#EDEDED]">
+                  {visibleSearchItems.length > 0 ? (
+                    visibleSearchItems.map((item, idx) => (
+                      <button
+                        key={`${item.href}-${idx}`}
+                        type="button"
+                        onClick={() => handleSearchSelect(item.href)}
+                        className={cn(
+                          "w-full text-left px-6 py-3 text-brand-gray text-sm font-medium hover:bg-white transition-colors",
+                          isRTL && "text-right"
+                        )}
+                      >
+                        {language === "ar" ? item.ar : item.en}
+                      </button>
+                    ))
+                  ) : (
+                    <div className={cn("px-6 py-4 text-sm text-brand-gray/70", isRTL && "text-right")}>
+                      {language === "ar" ? "لا توجد نتائج" : "No results"}
+                    </div>
+                  )}
+                </div>
+
+                {/* Dropdown footer */}
+                <div className="border-t border-[#EDEDED] px-5 py-3">
+                  <div className={cn("flex", isRTL ? "justify-start" : "justify-end")}>
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/e7c1eacc18791db74219590313bb7e2f4879c5be?width=48"
+                      alt=""
+                      className="w-6 h-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Language Switcher */}
           <div className="flex items-center bg-[#E5E5E5] rounded-full p-0.5 h-[21px]">
@@ -188,7 +406,57 @@ export default function Header() {
             {/* Navigation Links */}
             {navItems.map((item, index) => (
               <div key={index}>
-                {item.href.startsWith("/") ? (
+                {item.href === "/about" ? (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileAboutMenuOpen((v) => !v)}
+                      className={cn(
+                        "w-full flex items-center justify-between text-brand-gray text-xs font-medium leading-[21px] tracking-[-0.25px] py-2 hover:text-brand-purple transition-colors",
+                        isRTL && "flex-row-reverse"
+                      )}
+                      aria-expanded={isMobileAboutMenuOpen}
+                    >
+                      <span>{language === "ar" ? item.ar : item.en}</span>
+                      <ChevronDown
+                        className={cn(
+                          "w-4 h-4 transition-transform",
+                          isMobileAboutMenuOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+
+                    {isMobileAboutMenuOpen && (
+                      <div className="mt-2 bg-brand-light-gray rounded-b-[20px] rounded-t-none border border-[#EDEDED] overflow-hidden">
+                        <div className="divide-y divide-[#EDEDED]">
+                          {aboutMenuItems.map((sub, subIndex) => (
+                            <Link
+                              key={subIndex}
+                              to={sub.href}
+                              onClick={handleMobileNavClick}
+                              className={cn(
+                                "block px-5 py-3 text-brand-gray text-xs font-medium leading-[21px] hover:bg-white transition-colors",
+                                isRTL && "text-right"
+                              )}
+                            >
+                              {language === "ar" ? sub.ar : sub.en}
+                            </Link>
+                          ))}
+                        </div>
+                        {/* Submenu footer (separate) + logo on right side */}
+                        <div className="border-t border-[#EDEDED] px-4 py-3">
+                          <div className={cn("flex", isRTL ? "justify-start" : "justify-end")}>
+                            <img
+                              src="https://api.builder.io/api/v1/image/assets/TEMP/e7c1eacc18791db74219590313bb7e2f4879c5be?width=48"
+                              alt=""
+                              className="w-5 h-auto"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : item.href.startsWith("/") ? (
                   <Link
                     to={item.href}
                     onClick={handleMobileNavClick}
@@ -207,26 +475,71 @@ export default function Header() {
 
             {/* Additional Links */}
             <div className="h-px bg-[#EDEDED] my-2"></div>
-            <Link
-              to="/leadership"
-              onClick={handleMobileNavClick}
-              className="block text-brand-gray text-xs font-medium leading-[21px] tracking-[-0.25px] py-2 hover:text-brand-purple transition-colors"
-            >
-              {language === "ar" ? "القيادة" : "Leadership"}
-            </Link>
 
             {/* Search */}
             <div className="h-px bg-[#EDEDED] my-2"></div>
             <button
-              onClick={() => {
-                // Search functionality
-                setIsMobileMenuOpen(false);
-              }}
+              type="button"
+              onClick={() => setIsMobileSearchOpen((v) => !v)}
               className={`w-full flex items-center gap-3 text-brand-gray text-xs font-medium leading-[21px] tracking-[-0.25px] py-2 hover:text-brand-purple transition-colors ${isRTL ? "flex-row-reverse" : ""}`}
             >
               <Search className="w-4 h-4 flex-shrink-0" />
               <span>{language === "ar" ? "بحث" : "Search"}</span>
             </button>
+
+            {isMobileSearchOpen && (
+              <div className="mt-2 bg-brand-light-gray rounded-b-[20px] rounded-t-none border border-[#EDEDED] overflow-hidden">
+                <div className="p-4 border-b border-[#EDEDED]">
+                  <div className="flex items-center gap-2 bg-white rounded-full px-3 py-2 border border-[#EDEDED]">
+                    <Search className="w-4 h-4 text-brand-gray flex-shrink-0" />
+                    <input
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={language === "ar" ? "ابحث..." : "Search..."}
+                      className={cn(
+                        "w-full bg-transparent text-xs text-brand-gray placeholder:text-brand-gray/60 outline-none",
+                        isRTL && "text-right"
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="max-h-[220px] overflow-auto divide-y divide-[#EDEDED]">
+                  {visibleSearchItems.length > 0 ? (
+                    visibleSearchItems.map((item, idx) => (
+                      <button
+                        key={`m-${item.href}-${idx}`}
+                        type="button"
+                        onClick={() => {
+                          handleMobileNavClick();
+                          handleSearchSelect(item.href);
+                        }}
+                        className={cn(
+                          "w-full text-left px-5 py-3 text-brand-gray text-xs font-medium hover:bg-white transition-colors",
+                          isRTL && "text-right"
+                        )}
+                      >
+                        {language === "ar" ? item.ar : item.en}
+                      </button>
+                    ))
+                  ) : (
+                    <div className={cn("px-5 py-4 text-xs text-brand-gray/70", isRTL && "text-right")}>
+                      {language === "ar" ? "لا توجد نتائج" : "No results"}
+                    </div>
+                  )}
+                </div>
+
+                <div className="border-t border-[#EDEDED] px-4 py-3">
+                  <div className={cn("flex", isRTL ? "justify-start" : "justify-end")}>
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/e7c1eacc18791db74219590313bb7e2f4879c5be?width=48"
+                      alt=""
+                      className="w-5 h-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Language Switcher */}
             <div className="h-px bg-[#EDEDED] my-2"></div>

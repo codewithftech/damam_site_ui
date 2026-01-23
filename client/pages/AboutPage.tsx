@@ -83,7 +83,7 @@ export default function AboutPage() {
 
 
       <AboutHero />
-         
+
       {/* Breadcrumb */}
       <Breadcrumbv1 />
 
