@@ -1,11 +1,12 @@
+import { LeaderCard, type Leader } from "@/components/LeaderCard";
+
 export default function ExecutiveManagement() {
-  const executiveTeam = [
+  const executiveTeam: Leader[] = [
     {
       name: "Sufyan Zamil Al-Zamil",
       title: "Chairman",
       image:
         "https://api.builder.io/api/v1/image/assets/TEMP/3498128c06d0de58d0d57d6313e126895835cc31?width=800",
-      isLarge: true,
     },
     {
       name: "Hisham Hakami",
@@ -50,47 +51,32 @@ export default function ExecutiveManagement() {
 
       {/* Executive Team Grid */}
       <div className="w-full max-w-[1201px]">
-        {/* CEO - Centered Large Card */}
-        <div className="flex justify-center mb-[72px]">
-          <div className="w-[400px] h-[400px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
-            <img
-              src={executiveTeam[0].image}
-              alt={executiveTeam[0].name}
-              className="w-full h-[312px] object-cover rounded-t-[20px]"
+        {/* Mobile/Tablet (compact horizontal cards) */}
+        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          {executiveTeam.map((member) => (
+            <LeaderCard
+              key={`${member.name}-${member.title}`}
+              leader={member}
+              variant="horizontal"
             />
-            <div className="p-3">
-              <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                {executiveTeam[0].name}
-              </div>
-              <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                {executiveTeam[0].title}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Executive Team - 4 Smaller Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[27px]">
-          {executiveTeam.slice(1).map((member, index) => (
-            <div
-              key={index}
-              className="w-full max-w-[280px] h-[280px] rounded-[20px] border-[0.7px] border-[#EDEDED] bg-[#F5F5F5] overflow-hidden"
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-[218px] object-cover rounded-t-[20px]"
+        {/* Desktop (big CEO + small grid) */}
+        <div className="hidden lg:block">
+          <div className="flex justify-center mb-[72px]">
+            <LeaderCard leader={executiveTeam[0]} variant="largeVertical" />
+          </div>
+
+          <div className="grid grid-cols-4 gap-[27px]">
+            {executiveTeam.slice(1).map((member) => (
+              <LeaderCard
+                key={`${member.name}-${member.title}`}
+                leader={member}
+                variant="smallVertical"
               />
-              <div className="p-[9px]">
-                <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                  {member.name}
-                </div>
-                <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                  {member.title}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

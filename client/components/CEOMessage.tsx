@@ -1,4 +1,13 @@
+import { LeaderCard, type Leader } from "@/components/LeaderCard";
+
 export default function CEOMessage() {
+  const ceo: Leader = {
+    name: "Mohammed Ali Al Hassany",
+    title: "CEO",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/f5f60b422a87b9894552015f27076fa2fe3458c5?width=558",
+  };
+
   return (
     <div className="mb-[100px]">
       <h2 className="text-[48px] font-medium leading-[60px] tracking-[-0.96px] mb-[132px]">
@@ -14,18 +23,24 @@ export default function CEOMessage() {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-[50px]">
         {/* CEO Photo */}
         <div className="flex-shrink-0">
-          <div className="w-full lg:w-[279px] h-[308px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
+          {/* Mobile/Tablet: horizontal card */}
+          <div className="lg:hidden">
+            <LeaderCard leader={ceo} variant="horizontal" />
+          </div>
+
+          {/* Desktop: keep the original vertical card size */}
+          <div className="hidden lg:block w-[279px] h-[308px] rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] overflow-hidden">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/f5f60b422a87b9894552015f27076fa2fe3458c5?width=558"
-              alt="Mohammed Ali Al Hassany"
+              src={ceo.image}
+              alt={ceo.name}
               className="w-full h-[249px] object-cover rounded-t-[20px]"
             />
             <div className="p-2">
               <div className="text-brand-purple text-[14px] font-bold leading-[24px]">
-                Mohammed Ali Al Hassany
+                {ceo.name}
               </div>
               <div className="text-brand-gray text-[14px] font-medium leading-[24px]">
-                CEO
+                {ceo.title}
               </div>
             </div>
           </div>

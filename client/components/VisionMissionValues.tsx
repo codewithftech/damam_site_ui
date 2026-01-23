@@ -40,8 +40,8 @@ export default function VisionMissionValues() {
 
   return (
     <div className="mb-[100px]">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-[34px] h-0 bg-brand-purple border-t-2 border-brand-purple"></div>
+      <div className="flex items-center gap-3 mb-8 lg:mb-[106px]">
+        <div className="w-1 h-[34px] bg-brand-purple"></div>
         <h3 className="text-[24px] lg:text-[29px] font-medium leading-[24px] tracking-[-0.48px] lg:tracking-[-0.58px]">
           <span className="font-extrabold text-brand-purple">
             Vision, Mission{" "}
@@ -52,7 +52,7 @@ export default function VisionMissionValues() {
 
       {/* Vision & Mission Layout - Desktop */}
       <div className="hidden lg:block mb-[100px]">
-        <div className="relative w-full max-w-[1200px] h-[733px]">
+        <div className="relative w-full  h-[733px]">
           {/* Background Container with Cards */}
           <div className="absolute left-[137px] top-[115px] w-[926px] h-[615px]">
             {/* Background Image with Overlay */}
@@ -62,7 +62,6 @@ export default function VisionMissionValues() {
                 alt="Airport Terminal"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-brand-purple/30"></div>
             </div>
 
             {/* Mission Card - Bottom Left */}
@@ -166,9 +165,18 @@ export default function VisionMissionValues() {
       </div>
 
       {/* Vision & Mission - Mobile */}
-      <div className="lg:hidden grid grid-cols-1 gap-4 mb-6">
+      <div className="lg:hidden flex flex-col gap-4 mb-6">
+        {/* Top Image Banner (like design) */}
+        <div className="w-full rounded-[20px] overflow-hidden relative">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090"
+            alt="Airport Terminal"
+            className="w-full h-[200px] object-cover"
+          />
+        </div>
+
         {/* Vision Card */}
-        <div className="rounded-[16px] border border-[#EDEDED] bg-[#F5F5F5] p-6 flex flex-col items-center text-center min-h-[239px]">
+        <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 flex flex-col items-center text-center min-h-[239px]">
           <svg
             className="mb-[17px]"
             width="38"
@@ -211,7 +219,7 @@ export default function VisionMissionValues() {
         </div>
 
         {/* Mission Card */}
-        <div className="rounded-[16px] border border-[#EDEDED] bg-[#F5F5F5] p-6 flex flex-col items-center text-center min-h-[239px]">
+        <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 flex flex-col items-center text-center min-h-[239px]">
           <svg
             className="mb-[17px]"
             width="39"
