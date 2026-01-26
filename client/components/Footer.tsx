@@ -6,9 +6,14 @@ export default function Footer() {
   const { isRTL } = useLanguage();
 
   return (
-    <footer className="bg-brand-light-gray dac-footer-bg relative overflow-hidden py-12">
-      {/* Desktop-only overlay (keeps current footer color on top of the bg image) */}
-   
+    <footer className="bg-brand-light-gray relative overflow-hidden py-12">
+      {/* Desktop-only background image rendered as an <img> (not CSS background) */}
+      <img
+        src="/Dammam-Airports%20-Master-Logo-RGB%202.png"
+        alt=""
+        aria-hidden="true"
+        className="hidden lg:block absolute left-0 top-[41%] -translate-y-1/2 w-[min(900px,100%)] h-auto object-contain pointer-events-none select-none z-0 opacity-100"
+      />
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
         <div className="grid gap-10 lg:grid-cols-[373px_1fr] lg:gap-x-12">

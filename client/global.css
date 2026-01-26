@@ -13,16 +13,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Footer desktop background image (keeps mobile unchanged) */
-@media (min-width: 1024px) {
-  .dac-footer-bg {
-    background-image: url("/Dammam-Airports -Master-Logo-RGB 2.png");
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: min(900px, 100%) auto;
-  }
-}
-
 /* About Hero Swiper pagination (match design: centered, white dots, active pill) */
 .about-hero-swiper .swiper-pagination {
   bottom: 22px !important;

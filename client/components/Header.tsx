@@ -198,7 +198,7 @@ export default function Header() {
                   {isAboutMenuOpen && (
                     <div
                       className={cn(
-                        "absolute top-full mt-3 w-[270px] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
+                        "absolute top-full mt-3 w-[min(270px,calc(100vw-2rem))] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
                         isRTL ? "right-0" : "left-0"
                       )}
                     >
@@ -271,8 +271,9 @@ export default function Header() {
             {isSearchOpen && (
               <div
                 className={cn(
-                  "absolute top-full mt-3 w-[320px] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
-                  isRTL ? "right-0" : "left-1/2 -translate-x-1/2"
+                  "absolute top-full mt-3 w-[min(320px,calc(100vw-2rem))] bg-brand-light-gray rounded-b-[20px] rounded-t-none shadow-lg border border-[#EDEDED] overflow-hidden z-50",
+                  // Keep dropdown placement stable (same as LTR) even in RTL
+                  "left-1/2 -translate-x-1/2"
                 )}
               >
                 {/* Search input */}
@@ -317,7 +318,8 @@ export default function Header() {
 
                 {/* Dropdown footer */}
                 <div className="border-t border-[#EDEDED] px-5 py-3">
-                  <div className={cn("flex", isRTL ? "justify-start" : "justify-end")}>
+                  {/* Keep footer logo aligned like LTR (stable position) */}
+                  <div className="flex justify-end">
                     <img
                       src="https://api.builder.io/api/v1/image/assets/TEMP/e7c1eacc18791db74219590313bb7e2f4879c5be?width=48"
                       alt=""
@@ -374,7 +376,7 @@ export default function Header() {
 
             {/* Passenger Dropdown */}
             {isPassengerMenuOpen && (
-              <div className={`absolute ${isRTL ? "left-0" : "right-0"} top-[calc(100%+8px)] w-[306px] bg-white rounded-[5px] shadow-lg overflow-hidden z-50`}>
+              <div className={`absolute ${isRTL ? "left-0" : "right-0"} top-[calc(100%+8px)] w-[min(306px,calc(100vw-2rem))] bg-white rounded-[5px] shadow-lg overflow-hidden z-50`}>
                 <AirportOption
                   icon={<AirplaneIcon />}
                   nameAr="مطار الملك فهد الدولي"

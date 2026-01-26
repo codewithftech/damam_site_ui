@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { useMemo, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
 
 import "swiper/css";
 
@@ -9,7 +11,6 @@ type TimelineIconName = "airport" | "building" | "award" | "target" | "plane";
 type TimelineItem = {
   year: string;
   title: string;
-  active: boolean;
   icon: TimelineIconName;
 };
 
@@ -146,7 +147,7 @@ function TimelineIcon({
 function TimelineYearHeader({ year }: { year: string }) {
   return (
     <div className="flex items-center justify-center gap-4 lg:gap-[29px] mb-6 lg:mb-[34px] h-[34px]">
-      <div className="flex-1 h-0 border-t-2 border-[#D2D2D2] " />
+      <div className="flex-1 h-0 border-t border-[#D2D2D2] " />
       <h2
         className="text-brand-purple text-[36px] font-extrabold leading-[20px] text-center"
         style={{ fontWeight: 800 }}
@@ -160,7 +161,7 @@ function TimelineYearHeader({ year }: { year: string }) {
 
 function TimelineDetailCard({ detail }: { detail: TimelineDetail }) {
   return (
-    <div className="mb-10 w-full max-w-[1200px] mx-auto rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-10">
+    <div className="mb-10 w-full  mx-auto rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-10">
       <TimelineYearHeader year={detail.year} />
 
       {/* Desktop layout (matches screenshot):
@@ -231,39 +232,113 @@ function TimelineDetailCard({ detail }: { detail: TimelineDetail }) {
 
 export default function HistoryTimeline() {
   const { isRTL } = useLanguage();
+  const mobileSwiperRef = useRef<SwiperInstance | null>(null);
 
-  const timelineItems: TimelineItem[] = [
-    { year: "1946", title: "Dhahran Air Base", active: true, icon: "airport" },
-    {
-      year: "1983",
-      title: "Construction Start",
-      active: false,
-      icon: "building",
-    },
-    { year: "1990", title: "Opening Year", active: false, icon: "award" },
-    { year: "2017", title: "Vision 2030", active: false, icon: "target" },
-    { year: "2025", title: "Current Status", active: false, icon: "plane" },
-  ];
+  const timelineItems: TimelineItem[] = useMemo(
+    () => [
+      { year: "1946", title: "Dhahran Air Base", icon: "airport" },
+      { year: "1983", title: "Construction Start", icon: "building" },
+      { year: "1990", title: "Opening Year", icon: "award" },
+      { year: "2017", title: "Vision 2030", icon: "target" },
+      { year: "2025", title: "Current Status", icon: "plane" },
+    ],
+    []
+  );
 
-  const activeTimelineDetail: TimelineDetail = {
-    year: "1946",
-    title: "Dhahran Air Base Foundation",
-    description:
-      "Establishment of Dhahran Airfield by Aramco to support oil operations in the Eastern Province, creating the first major aviation infrastructure in the region that would later influence the development of modern aviation facilities.",
-    stats: [
-      { value: "2.4 km", label: "Runway Length" },
-      { value: "Oil Operations", label: "Initial Purpose" },
-    ],
-    highlights: [
-      "First concrete runway in Eastern Province",
-      "Strategic location near oil discoveries",
-      "Foundation for regional aviation development",
-      "Aramco operations support facility",
-      "Gateway for international business travelers",
-    ],
-    imageSrc:
-      "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
-    imageAlt: "Historic airport facility",
+  // Detail content keyed by year (TimelineDetailCard reads from this)
+  const timelineDetailsByYear: Record<string, TimelineDetail> = useMemo(
+    () => ({
+      "1946": {
+        year: "1946",
+        title: "Dhahran Air Base Foundation",
+        description:
+          "Establishment of Dhahran Airfield by Aramco to support oil operations in the Eastern Province, creating the first major aviation infrastructure in the region that would later influence the development of modern aviation facilities.",
+        stats: [
+          { value: "2.4 km", label: "Runway Length" },
+          { value: "Oil Operations", label: "Initial Purpose" },
+        ],
+        highlights: [
+          "First concrete runway in Eastern Province",
+          "Strategic location near oil discoveries",
+          "Foundation for regional aviation development",
+          "Aramco operations support facility",
+          "Gateway for international business travelers",
+        ],
+        imageSrc:
+          "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
+        imageAlt: "Historic airport facility",
+      },
+      // TODO: Fill out real content for these years when available
+      "1983": {
+        year: "1983",
+        title: "Construction Start",
+        description:
+          "Major expansion and modernization initiatives began, laying the groundwork for future passenger and cargo growth.",
+        stats: [
+          { value: "—", label: "Phase" },
+          { value: "—", label: "Scope" },
+        ],
+        highlights: ["Infrastructure planning", "Capacity upgrade", "Operational readiness"],
+        imageSrc:
+          "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
+        imageAlt: "Airport development",
+      },
+      "1990": {
+        year: "1990",
+        title: "Opening Year",
+        description:
+          "A key milestone in opening and scaling services, strengthening regional connectivity and operations.",
+        stats: [
+          { value: "—", label: "Terminals" },
+          { value: "—", label: "Capacity" },
+        ],
+        highlights: ["Service launch", "Operational ramp-up", "Passenger growth"],
+        imageSrc:
+          "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
+        imageAlt: "Airport opening",
+      },
+      "2017": {
+        year: "2017",
+        title: "Vision 2030",
+        description:
+          "Alignment with national transformation goals, focusing on passenger experience, efficiency, and sustainable growth.",
+        stats: [
+          { value: "—", label: "Programs" },
+          { value: "—", label: "Initiatives" },
+        ],
+        highlights: ["Service excellence", "Digital initiatives", "Strategic partnerships"],
+        imageSrc:
+          "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
+        imageAlt: "Vision 2030",
+      },
+      "2025": {
+        year: "2025",
+        title: "Current Status",
+        description:
+          "Today, Dammam Airports continues to expand capabilities, delivering modern services and seamless travel experiences.",
+        stats: [
+          { value: "—", label: "Passengers" },
+          { value: "—", label: "Destinations" },
+        ],
+        highlights: ["Operational performance", "Customer experience", "Future-ready growth"],
+        imageSrc:
+          "https://api.builder.io/api/v1/image/assets/TEMP/5d7f9bb2db631d1cf78ed3f8a5a36b76d25a2293?width=1090",
+        imageAlt: "Current airport",
+      },
+    }),
+    []
+  );
+
+  const [activeYear, setActiveYear] = useState<string>(timelineItems[0]?.year ?? "1946");
+
+  const activeTimelineDetail =
+    timelineDetailsByYear[activeYear] ?? timelineDetailsByYear[timelineItems[0]?.year ?? "1946"];
+
+  const handleActivate = (year: string, index?: number) => {
+    setActiveYear(year);
+    if (typeof index === "number") {
+      mobileSwiperRef.current?.slideTo(index);
+    }
   };
 
   return (
@@ -288,6 +363,14 @@ export default function HistoryTimeline() {
           dir={isRTL ? "rtl" : "ltr"}
           spaceBetween={12}
           slidesPerView={2.2}
+          onSwiper={(swiper) => {
+            mobileSwiperRef.current = swiper;
+          }}
+          onSlideChange={(swiper) => {
+            const idx = swiper.realIndex ?? swiper.activeIndex;
+            const year = timelineItems[idx]?.year;
+            if (year) setActiveYear(year);
+          }}
           breakpoints={{
             480: { slidesPerView: 2.4, spaceBetween: 12 },
             640: { slidesPerView: 3.1, spaceBetween: 14 },
@@ -296,23 +379,28 @@ export default function HistoryTimeline() {
         >
           {timelineItems.map((item, index) => (
             <SwiperSlide key={index} className="!w-auto">
-              <div className="w-[155px] flex flex-col items-center gap-3">
+              <button
+                type="button"
+                onClick={() => handleActivate(item.year, index)}
+                className="w-[155px] flex flex-col items-center gap-3"
+                aria-pressed={activeYear === item.year}
+              >
                 <div
                   className={cn(
                     "w-[74px] h-[74px] rounded-full flex items-center justify-center border",
-                    item.active
+                    activeYear === item.year
                       ? "bg-[#F5F0FF] border-[#EDEDED]"
                       : "bg-white border-[#EDEDED]"
                   )}
                 >
-                  <TimelineIcon name={item.icon} active={item.active} />
+                  <TimelineIcon name={item.icon} active={activeYear === item.year} />
                 </div>
 
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={cn(
                       "text-[20px] font-bold leading-[24px] text-center",
-                      item.active ? "text-brand-purple" : "text-brand-gray"
+                      activeYear === item.year ? "text-brand-purple" : "text-brand-gray"
                     )}
                   >
                     {item.year}
@@ -325,12 +413,12 @@ export default function HistoryTimeline() {
                 <div
                   className={cn(
                     "w-full h-2 rounded-lg border",
-                    item.active
+                    activeYear === item.year
                       ? "bg-brand-purple border-brand-purple"
                       : "bg-white border-[#EDEDED]"
                   )}
                 />
-              </div>
+              </button>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -340,26 +428,29 @@ export default function HistoryTimeline() {
       <div className="hidden lg:block mb-[40px]">
         <div className="relative flex items-start justify-between w-full max-w-[1201px] mb-[72px]">
           {timelineItems.map((item, index) => (
-            <div
+            <button
               key={index}
+              type="button"
+              onClick={() => handleActivate(item.year)}
               className="flex flex-col items-center gap-4 w-[129px] relative"
+              aria-pressed={activeYear === item.year}
             >
               <div
                 className={`w-[74px] h-[74px] rounded-full flex items-center justify-center ${
-                  item.active
+                  activeYear === item.year
                     ? "bg-[#F5F0FF]"
                     : item.icon === "building"
                       ? "bg-[#F5F5F5]"
                       : "bg-[#EDEDED]"
                 }`}
               >
-                <TimelineIcon name={item.icon} active={item.active} />
+                <TimelineIcon name={item.icon} active={activeYear === item.year} />
               </div>
 
               <div className="flex flex-col items-center gap-1">
                 <div
                   className={`text-[20px] font-bold leading-[24px] text-center ${
-                    item.active ? "text-brand-purple" : "text-brand-gray"
+                    activeYear === item.year ? "text-brand-purple" : "text-brand-gray"
                   }`}
                 >
                   {item.year}
@@ -371,7 +462,7 @@ export default function HistoryTimeline() {
 
               <div
                 className={`w-full h-2 rounded-lg border ${
-                  item.active
+                  activeYear === item.year
                     ? "bg-brand-purple border-[#EDEDED]"
                     : "bg-[#F5F5F5] border-[#EDEDED]"
                 }`}
@@ -379,11 +470,11 @@ export default function HistoryTimeline() {
 
               {index < timelineItems.length - 1 && (
                 <div
-                  className="absolute top-[37px] h-0 border-t border-dashed border-brand-gray"
+                  className="absolute top-[37px] h-0 border-t-2 border-dashed border-brand-gray"
                   style={{ width: "139px", left: "129px" }}
                 />
               )}
-            </div>
+            </button>
           ))}
         </div>
       </div>
