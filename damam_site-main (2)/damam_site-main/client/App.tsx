@@ -1,63 +1,53 @@
 import "./global.css";
 
 import { Toaster } from "@/components/ui/toaster";
-import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import AboutPage from "./pages/AboutPage";
 import LeadershipPage from "./pages/LeadershipPage";
-import ComponentLibrary from "./pages/ComponentLibrary";
-import NotFound from "./pages/NotFound";
-import AboutPostSingle from "./pages/AboutPostSingle";
 import AwardsPage from "./pages/AwardsPage";
-import KFIAPage from "./pages/KFIAPage";
 import OurAirportsPage from "./pages/OurAirportsPage";
-import AeroConcessionsPage from "./pages/AeroConcessionsPage";
+import KFIAPage from "./pages/KFIAPage";
+import SustainabilityPage from "./pages/SustainabilityPage";
 import AeroOpportunitiesPage from "./pages/AeroOpportunitiesPage";
 import AirlineDevelopmentPage from "./pages/AirlineDevelopmentPage";
+import AeroConcessionsPage from "./pages/AeroConcessionsPage";
 import CargoLogisticsPage from "./pages/CargoLogisticsPage";
-import ComponentsLibPage from "./pages/ComponentsLibPage";
-import ContactInvestmentTeamPage from "./pages/ContactInvestmentTeamPage";
-import ContactProcurementPage from "./pages/ContactProcurementPage";
-import ContactUsPage from "./pages/ContactUsPage";
-import GalleryPage from "./pages/GalleryPage";
-import InternshipGraduatePage from "./pages/InternshipGraduatePage";
 import InvestmentGuidelinesPage from "./pages/InvestmentGuidelinesPage";
-import MediaContactPage from "./pages/MediaContactPage";
-import MediaKitPage from "./pages/MediaKitPage";
-import NewsPage from "./pages/NewsPage";
-import ProcurementGuidelinesPage from "./pages/ProcurementGuidelinesPage";
-import PublicationsPage from "./pages/PublicationsPage";
-import SustainabilityPage from "./pages/SustainabilityPage";
+import ContactInvestmentTeamPage from "./pages/ContactInvestmentTeamPage";
 import VendorProfilePage from "./pages/VendorProfilePage";
 import VendorRegistrationPage from "./pages/VendorRegistrationPage";
+import ProcurementGuidelinesPage from "./pages/ProcurementGuidelinesPage";
+import ContactProcurementPage from "./pages/ContactProcurementPage";
+import InternshipGraduatePage from "./pages/InternshipGraduatePage";
+import NewsPage from "./pages/NewsPage";
+import GalleryPage from "./pages/GalleryPage";
+import PublicationsPage from "./pages/PublicationsPage";
+import MediaKitPage from "./pages/MediaKitPage";
+import MediaContactPage from "./pages/MediaContactPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import ComponentsLibPage from "./pages/ComponentsLibPage";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <LanguageProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/about-post-single" element={<AboutPostSingle />} />
-            
-            <Route path="/leadership" element={<LeadershipPage />} />
-            <Route path="/component-library" element={<ComponentLibrary />} />
-            <Route path="/awards" element={<AwardsPage />} />
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/leadership" element={<LeadershipPage />} />
+          <Route path="/awards" element={<AwardsPage />} />
           <Route path="/our-airports" element={<OurAirportsPage />} />
           <Route path="/airports/kfia" element={<KFIAPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-  
-            <Route path="/sustainability" element={<SustainabilityPage />} />
+          <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route
             path="/aero-opportunities"
             element={<AeroOpportunitiesPage />}
@@ -101,13 +91,11 @@ const App = () => (
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/components-lib" element={<ComponentsLibPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-         
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </LanguageProvider>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+export default App;

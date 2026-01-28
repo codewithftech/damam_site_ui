@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 
-export default function Header() {
+function Header() {
   const { language, setLanguage, isRTL } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,7 +42,29 @@ export default function Header() {
     { href: "/awards", en: "Awards & Achievements", ar: "الجوائز والإنجازات" },
     { href: "/our-airports", en: "Our Airports", ar: "مطاراتنا" },
     { href: "/airports/kfia", en: "KFIA", ar: "KFIA" },
+    { href: "/sustainability", en: "Sustainability", ar: "Sustainability" },
+    // Invest with Us
+    { href: "/aero-opportunities", en: "Aero Opportunities", ar: "Aero Opportunities" },
+    { href: "/airline-development", en: "Airline Development", ar: "Airline Development" },
+    { href: "/aero-concessions", en: "Aero Concessions", ar: "Aero Concessions" },
+    { href: "/cargo-logistics", en: "Cargo & Logistics", ar: "Cargo & Logistics" },
+    { href: "/investment-guidelines", en: "Investment Guidelines", ar: "Investment Guidelines" },
+    { href: "/contact-investment-team", en: "Contact Investment Team", ar: "Contact Investment Team" },
+    // Vendor Portal / Procurement
+    { href: "/vendor-profile", en: "Vendor Profile", ar: "Vendor Profile" },
+    { href: "/vendor-registration", en: "Vendor Registration", ar: "Vendor Registration" },
+    { href: "/procurement-guidelines", en: "Procurement Guidelines", ar: "Procurement Guidelines" },
+    { href: "/contact-procurement", en: "Contact Procurement", ar: "Contact Procurement" },
+    // Careers / Media
+    { href: "/internship-graduate", en: "Internship & Graduate", ar: "Internship & Graduate" },
+    { href: "/news", en: "News", ar: "News" },
+    { href: "/gallery", en: "Gallery", ar: "Gallery" },
+    { href: "/publications", en: "Publications", ar: "Publications" },
+    { href: "/media-kit", en: "Media Kit", ar: "Media Kit" },
+    { href: "/media-contact", en: "Media Contact", ar: "Media Contact" },
+    { href: "/contact-us", en: "Contact Us", ar: "Contact Us" },
     { href: "/component-library", en: "Component Library", ar: "مكتبة المكونات" },
+    { href: "/components-lib", en: "Components Lib", ar: "Components Lib" },
   ];
 
   const searchItems = [
@@ -202,7 +224,7 @@ export default function Header() {
                         isRTL ? "right-0" : "left-0"
                       )}
                     >
-                      <div className="divide-y divide-[#EDEDED]">
+                      <div className="max-h-[320px] overflow-y-auto divide-y divide-[#EDEDED]">
                         {aboutMenuItems.map((sub, subIndex) => (
                           <Link
                             key={subIndex}
@@ -430,7 +452,7 @@ export default function Header() {
 
                     {isMobileAboutMenuOpen && (
                       <div className="mt-2 bg-brand-light-gray rounded-b-[20px] rounded-t-none border border-[#EDEDED] overflow-hidden">
-                        <div className="divide-y divide-[#EDEDED]">
+                        <div className="max-h-[260px] overflow-y-auto divide-y divide-[#EDEDED]">
                           {aboutMenuItems.map((sub, subIndex) => (
                             <Link
                               key={subIndex}
@@ -626,6 +648,8 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
 
 interface NavLinkProps {
   href: string;
