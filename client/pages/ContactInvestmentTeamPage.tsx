@@ -37,7 +37,7 @@ export default function ContactInvestmentTeamPage() {
       <Header />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 lg:px-[120px] py-12 lg:py-[108px]">
+      <div className="container mx-auto  py-12 lg:py-[108px]">
         {/* Page Title */}
         <h1 className="text-[36px] lg:text-[48px] font-medium leading-[46px] lg:leading-[60px] tracking-[-0.72px] lg:tracking-[-0.96px] mb-6 lg:mb-8">
           <span className="font-extrabold text-brand-purple">Contact </span>
@@ -45,7 +45,7 @@ export default function ContactInvestmentTeamPage() {
         </h1>
 
         {/* Description */}
-        <p className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] mb-8 lg:mb-12 max-w-[1183px]">
+        <p className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] mb-8 lg:mb-12">
           We welcome investors, partners, and businesses to explore
           opportunities with{" "}
           <span className="font-extrabold text-brand-purple">
@@ -93,9 +93,9 @@ export default function ContactInvestmentTeamPage() {
         </div>
 
         {/* Form and Contact Details Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[790px_380px] gap-6 lg:gap-[30px] max-w-[1200px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-[30px]">
           {/* Form */}
-          <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px]">
+          <div className="lg:col-span-8 rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px]">
             {/* Section 01 - Investor Information */}
             <div className="mb-8 lg:mb-12">
               <div className="flex items-center gap-2 mb-6 lg:mb-8">
@@ -220,7 +220,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.airline}
                     onChange={() => handleInvestmentAreaChange("airline")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Airline Partnerships
@@ -233,7 +233,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.mro}
                     onChange={() => handleInvestmentAreaChange("mro")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Maintenance, Repair & Overhaul (MRO)
@@ -246,7 +246,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.cargo}
                     onChange={() => handleInvestmentAreaChange("cargo")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Cargo & Logistics
@@ -259,7 +259,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.retail}
                     onChange={() => handleInvestmentAreaChange("retail")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Retail & F&B Concessions
@@ -272,7 +272,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.realEstate}
                     onChange={() => handleInvestmentAreaChange("realEstate")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Real Estate & Leasing
@@ -287,7 +287,7 @@ export default function ContactInvestmentTeamPage() {
                     type="checkbox"
                     checked={investmentAreas.other}
                     onChange={() => handleInvestmentAreaChange("other")}
-                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5]"
+                    className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] flex-shrink-0"
                   />
                   <span className="text-brand-gray text-[14px] font-extrabold leading-[24px]">
                     Other (please specify)
@@ -478,7 +478,7 @@ export default function ContactInvestmentTeamPage() {
                   type="checkbox"
                   checked={agreedToTerms}
                   onChange={() => setAgreedToTerms(!agreedToTerms)}
-                  className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] mt-1 flex-shrink-0"
+                  className="w-[22px] h-[22px] rounded-[6px] border border-[#CECECE] bg-[#F5F5F5] appearance-none grid place-content-center checked:bg-brand-purple checked:border-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/30 checked:bg-[url(data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2020%2020'%20fill%3D'none'%3E%3Cpath%20d%3D'M16.667%205.833%207.917%2014.583%203.333%2010'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E)] checked:bg-no-repeat checked:bg-center checked:bg-[length:16px_16px] mt-1 flex-shrink-0"
                 />
                 <span className="text-brand-gray text-[14px] font-medium leading-[24px]">
                   I confirm that the information provided is accurate and agree
@@ -494,7 +494,7 @@ export default function ContactInvestmentTeamPage() {
           </div>
 
           {/* Direct Contact Details Sidebar */}
-          <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px]">
+          <div className="lg:col-span-4 rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px] flex flex-col lg:h-[518px] lg:max-h-[518px]">
             <h3 className="text-brand-purple text-[18px] lg:text-[20px] font-bold leading-[24px] mb-3">
               Direct Contact Details
             </h3>
@@ -503,78 +503,89 @@ export default function ContactInvestmentTeamPage() {
               assist you.
             </p>
 
-            {/* Investment Partnerships Department */}
-            <div className="mb-6 lg:mb-8">
-              <h4 className="text-brand-gray text-[14px] font-extrabold leading-[24px] mb-4">
-                NationaliInvestment Partnerships Departmentty
-              </h4>
+            <div className="flex flex-col flex-1">
+              {/* Investment Partnerships Department */}
+              <div>
+                <h4 className="text-brand-gray text-[14px] font-extrabold leading-[24px] mb-4">
+                  NationaliInvestment Partnerships Departmentty
+                </h4>
 
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-white" />
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-brand-gray text-[14px] font-bold">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:investment@daco.sa"
+                      className="text-brand-gray text-[14px] font-medium underline"
+                    >
+                      investment@daco.sa
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-brand-gray text-[14px] font-bold">Email</p>
-                  <a
-                    href="mailto:investment@daco.sa"
-                    className="text-brand-gray text-[14px] font-medium underline"
-                  >
-                    investment@daco.sa
-                  </a>
+
+                <div className="flex items-center gap-2">
+                  <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-brand-gray text-[14px] font-bold">
+                      Phone
+                    </p>
+                    <a
+                      href="tel:+966138831000"
+                      className="text-brand-gray text-[14px] font-medium underline"
+                    >
+                      +966 (13) 883-1000
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-brand-gray text-[14px] font-bold">Phone</p>
-                  <a
-                    href="tel:+966138831000"
-                    className="text-brand-gray text-[14px] font-medium underline"
-                  >
-                    +966 (13) 883-1000
-                  </a>
-                </div>
-              </div>
-            </div>
+              {/* Spacer to match screenshot vertical distribution */}
+              <div className="flex-1" />
 
-            <div className="h-[1px] bg-[#F5F5F5] mb-6 lg:mb-8"></div>
+              {/* Corporate Relations Office */}
+              <div>
+                <h4 className="text-brand-gray text-[14px] font-extrabold leading-[24px] mb-4">
+                  Corporate Relations Office
+                </h4>
 
-            {/* Corporate Relations Office */}
-            <div>
-              <h4 className="text-brand-gray text-[14px] font-extrabold leading-[24px] mb-4">
-                Corporate Relations Office
-              </h4>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-brand-gray text-[14px] font-bold">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:partners@daco.sa"
+                      className="text-brand-gray text-[14px] font-medium underline"
+                    >
+                      partners@daco.sa
+                    </a>
+                  </div>
+                </div>
 
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-brand-gray text-[14px] font-bold">Email</p>
-                  <a
-                    href="mailto:partners@daco.sa"
-                    className="text-brand-gray text-[14px] font-medium underline"
-                  >
-                    partners@daco.sa
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-brand-gray text-[14px] font-bold">Phone</p>
-                  <a
-                    href="tel:+966138832000"
-                    className="text-brand-gray text-[14px] font-medium underline"
-                  >
-                    +966 (13) 883-2000
-                  </a>
+                <div className="flex items-center gap-2">
+                  <div className="w-[46px] h-[36px] rounded-[14px] bg-brand-purple flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-brand-gray text-[14px] font-bold">
+                      Phone
+                    </p>
+                    <a
+                      href="tel:+966138832000"
+                      className="text-brand-gray text-[14px] font-medium underline"
+                    >
+                      +966 (13) 883-2000
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

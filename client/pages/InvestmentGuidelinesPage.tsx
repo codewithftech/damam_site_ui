@@ -215,7 +215,7 @@ function RegulatoryCard({
 }: RegulatoryCardProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-end gap-[26px] lg:gap-[30px] p-4 lg:px-[41px] lg:pt-[42px] lg:pb-[30px] rounded-[15px] border ${highlighted ? "border-[1.5px] border-brand-purple bg-[#F0EDF5]" : "border-[#EDEDED] bg-white"} h-[207px]`}
+      className={`flex flex-col items-center justify-center gap-6 lg:gap-[26px] p-6 lg:p-[30px] rounded-[20px] border ${highlighted ? "border-[1.5px] border-brand-purple bg-[#F0EDF5]" : "border-[#EDEDED] bg-white"} h-[207px]`}
     >
       <div className="flex items-center justify-center h-[53px]">{icon}</div>
       <h3 className="text-brand-purple text-[20px] font-bold leading-[24px] tracking-[-0.4px] text-center">
@@ -255,7 +255,7 @@ export default function InvestmentGuidelinesPage() {
       <Header />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 lg:px-[120px] py-12 lg:py-[108px]">
+      <div className="container mx-auto  py-12 lg:py-[108px]">
         {/* Page Title */}
         <h1 className="text-[36px] lg:text-[48px] font-medium leading-[46px] lg:leading-[60px] tracking-[-0.72px] lg:tracking-[-0.96px] mb-12 lg:mb-[68px]">
           <span className="font-extrabold text-brand-purple">Investment</span>
@@ -274,7 +274,7 @@ export default function InvestmentGuidelinesPage() {
           </div>
 
           {/* Description */}
-          <p className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] mb-8 lg:mb-12 max-w-[1170px]">
+          <p className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] mb-8 lg:mb-12 ">
             Streamlined application process for both aeronautical and
             non-aeronautical investment opportunities. Choose your investment
             type and follow{" "}
@@ -284,7 +284,7 @@ export default function InvestmentGuidelinesPage() {
           </p>
 
           {/* Application Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[30px] max-w-[1200px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[30px] ">
             {/* Aero Opportunities Application */}
             <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px]">
               <h3 className="text-brand-purple text-[18px] lg:text-[20px] font-extrabold leading-normal tracking-[-0.36px] lg:tracking-[-0.4px] mb-6 lg:mb-[30px]">
@@ -336,9 +336,9 @@ export default function InvestmentGuidelinesPage() {
 
           {/* Content Grid */}
           <div className="rounded-[20px] border border-[#EDEDED] bg-[#F5F5F5] p-6 lg:p-[30px]">
-            <div className="grid grid-cols-1 lg:grid-cols-[268px_1fr] gap-6 lg:gap-[30px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(560px,1fr)_minmax(420px,520px)] gap-6 lg:gap-[30px]">
               {/* Left Side - Icon Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-[30px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-[30px]">
                 <RegulatoryCard
                   icon={<LawIcon />}
                   title="Civil Aviation Laws"
@@ -367,17 +367,17 @@ export default function InvestmentGuidelinesPage() {
               </div>
 
               {/* Right Side - Expandable Items */}
-              <div className="flex flex-col gap-[10px]">
+              <div className="flex flex-col gap-4">
                 {/* Civil Aviation Law - Expanded */}
-                <div className="rounded-[15px] border border-[#EDEDED] bg-white overflow-hidden">
+                <div className="rounded-[20px] border border-[#EDEDED] bg-white overflow-hidden">
                   <button
                     onClick={() => toggleItem("civil-aviation-law")}
-                    className="w-full flex items-center justify-between px-6 lg:px-[30px] py-[25px] lg:py-[30px]"
+                    className="w-full flex items-center justify-between px-6 lg:px-[30px] py-5 lg:py-6 min-h-[74px]"
                   >
                     <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[20px]">
                       Civil Aviation Law
                     </span>
-                    <div className="w-[30px] h-[30px] rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
                       <Plus className="w-[18px] h-[18px] text-brand-gray" />
                     </div>
                   </button>
@@ -415,12 +415,12 @@ export default function InvestmentGuidelinesPage() {
                 {/* Law of Civil Aviation Tariff */}
                 <button
                   onClick={() => toggleItem("law-tariff")}
-                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-[25px] lg:py-[30px] rounded-[15px] border border-[#EDEDED] bg-white"
+                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-5 lg:py-6 min-h-[74px] rounded-[20px] border border-[#EDEDED] bg-white"
                 >
                   <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[20px]">
                     Law of Civil Aviation Tariff
                   </span>
-                  <div className="w-[30px] h-[30px] rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
                     <Plus className="w-[18px] h-[18px] text-brand-gray" />
                   </div>
                 </button>
@@ -428,12 +428,12 @@ export default function InvestmentGuidelinesPage() {
                 {/* GACA Statute */}
                 <button
                   onClick={() => toggleItem("gaca-statute")}
-                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-[25px] lg:py-[30px] rounded-[15px] border border-[#EDEDED] bg-white"
+                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-5 lg:py-6 min-h-[74px] rounded-[20px] border border-[#EDEDED] bg-white"
                 >
                   <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[20px]">
                     GACA Statute
                   </span>
-                  <div className="w-[30px] h-[30px] rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
                     <Plus className="w-[18px] h-[18px] text-brand-gray" />
                   </div>
                 </button>
@@ -441,13 +441,13 @@ export default function InvestmentGuidelinesPage() {
                 {/* Regulatory Framework */}
                 <button
                   onClick={() => toggleItem("regulatory-framework")}
-                  className="w-full flex items-start justify-between px-6 lg:px-[30px] py-4 lg:py-[16px] rounded-[15px] border border-[#EDEDED] bg-white"
+                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-5 lg:py-6 min-h-[74px] rounded-[20px] border border-[#EDEDED] bg-white"
                 >
-                  <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] text-left">
+                  <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[24px] text-left pr-4">
                     Regulatory Framework for the Financial Consideration for
                     Services Provided by the Authority
                   </span>
-                  <div className="w-[30px] h-[30px] rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0 mt-[9px]">
+                  <div className="w-8 h-8 rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
                     <Plus className="w-[18px] h-[18px] text-brand-gray" />
                   </div>
                 </button>
@@ -455,12 +455,12 @@ export default function InvestmentGuidelinesPage() {
                 {/* Investor Journey Guide */}
                 <button
                   onClick={() => toggleItem("investor-journey")}
-                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-[25px] lg:py-[30px] rounded-[15px] border border-[#EDEDED] bg-white"
+                  className="w-full flex items-center justify-between px-6 lg:px-[30px] py-5 lg:py-6 min-h-[74px] rounded-[20px] border border-[#EDEDED] bg-white"
                 >
                   <span className="text-brand-gray text-[14px] lg:text-[16px] font-medium leading-[20px]">
                     Investor Journey Guide
                   </span>
-                  <div className="w-[30px] h-[30px] rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[10px] border border-[#EDEDED] bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
                     <Plus className="w-[18px] h-[18px] text-brand-gray" />
                   </div>
                 </button>

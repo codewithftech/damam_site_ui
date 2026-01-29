@@ -57,7 +57,7 @@ export default function CargoLogisticsPage() {
             <span className="font-extrabold text-brand-purple">Cargo </span>
             <span className="text-brand-gray">Village</span>
           </h1>
-        </div>
+        </div>  
 
         {/* Info Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[30px]  mb-12 lg:mb-[72px]">
